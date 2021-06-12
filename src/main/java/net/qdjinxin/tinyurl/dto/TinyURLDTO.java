@@ -1,5 +1,6 @@
 package net.qdjinxin.tinyurl.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 /**
@@ -10,6 +11,7 @@ import lombok.Data;
  * @date 2021/6/11 22:05
  */
 @Data
+@Builder
 public class TinyURLDTO {
     /**
      * 短网址id

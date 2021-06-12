@@ -20,6 +20,7 @@ public class IDUtils {
      * 这是创建url生成的第一个参数
      */
     public static int url = -1;
+    private static final long beginTime = 1623422317600l;
 
     /**
      * 根据当前时间创建一个按照毫秒数全局唯一ID,理论上每秒最多可以创建1000个id
@@ -33,7 +34,7 @@ public class IDUtils {
             System.exit(0);
         }
         Thread.sleep(1);
-        BigInteger rest = new BigInteger(String.valueOf(System.currentTimeMillis()));
+        BigInteger rest = new BigInteger(String.valueOf(System.currentTimeMillis() - beginTime));
         BigInteger big1 = new BigInteger("1");
         BigInteger big58 = new BigInteger("58");
         // 创建栈
