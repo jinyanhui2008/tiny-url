@@ -43,6 +43,7 @@ public class SyncUtils {
      * @param id
      */
     public static TinyURLDTO sync(String url, String id) {
+        AtomicReference<Boolean> ok = new AtomicReference<>(true);
         AtomicReference<String> tinyUrl = new AtomicReference<>("");
         Arrays.stream(serviceUrl).forEach(sericeUrl -> {
             Request.Builder builder = new Request.Builder();
@@ -57,8 +58,9 @@ public class SyncUtils {
                 //如果调用异常则将请求放入缓存,等待job继续同步
                 File sync = new File("./sync/" + id + ".sync");
                 FileUtils.writeFile(sync, url);
+                ok.set(false);
             }
         });
-        return TinyURLDTO.builder().id(id).tiny_url(tinyUrl.get()).build();
+        return TinyURLDTO.builder().id(id).tiny_url(tinyUrl.get()).sync(ok.get()).build();
     }
 }

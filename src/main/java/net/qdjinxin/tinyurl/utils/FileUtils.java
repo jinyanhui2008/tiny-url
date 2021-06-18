@@ -4,11 +4,16 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
 
@@ -106,12 +111,12 @@ public class FileUtils {
      *
      * @param file
      */
-    public static void readFile(File file) {
-//        try (OutputStream fos = new FileOutputStream(file); Writer write = new OutputStreamWriter(fos, Charset.defaultCharset()); BufferedWriter bufferedWriter = new BufferedWriter(write)) {
-//            bufferedWriter.write(content);
-//            bufferedWriter.flush();
-//        } catch (Exception e) {
-//            log.error(e.getMessage(), e);
-//        }
+    public static String readFile(File file) {
+        try (InputStream fis = new FileInputStream(file); Reader reader = new InputStreamReader(fis, Charset.defaultCharset()); BufferedReader bufferedWriter = new BufferedReader(reader)) {
+            return bufferedWriter.readLine();
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
+        return "";
     }
 }

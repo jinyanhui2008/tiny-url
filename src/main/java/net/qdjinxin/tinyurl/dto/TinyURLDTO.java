@@ -21,4 +21,8 @@ public class TinyURLDTO {
      * 短网址连接
      */
     String tiny_url;
+    /**
+     * 集群分发成功
+     */
+    Boolean sync;
 }
