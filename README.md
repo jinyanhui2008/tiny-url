@@ -5,7 +5,7 @@
 无数据库, 简单配置则可以支持集群部署,提高负载能力,通常单机即可支持上万并发访问.
 
 #### 软件架构
-基于spring boot开发, 结合nginx高效的静态资源访问效率, 提供高效的短网址服务.
+基于spring boot开发, 使用nginx作为负载, 提供高效的短网址服务.
 
 
 #### 安装教程
@@ -17,13 +17,12 @@
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+1.  使用http调用/api/tinyurl/create地址,将要生成短连接的url以post的方式传递服务.
+    调用成功后会返回对应的json对象.
+```json
+{
+"id": "1sSeqj", //生成的id
+"tiny_url": "l.qdjinxin.net/1s/Se/qj", //生成短连接
+"sync": true //集群模式是否同步成功
+}
+```
