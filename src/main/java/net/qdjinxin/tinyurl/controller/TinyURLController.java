@@ -50,7 +50,7 @@ public class TinyURLController {
      * @param url
      * @return
      */
-    @PostMapping(value = "/create", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
     public TinyURLDTO create(String url) {
         /**
          * 1. 首先创建对应的本地文件.

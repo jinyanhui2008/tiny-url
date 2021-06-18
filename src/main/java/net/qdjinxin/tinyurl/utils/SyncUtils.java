@@ -11,6 +11,7 @@ import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
@@ -53,7 +54,9 @@ public class SyncUtils {
                 tinyUrl.set(response.body().string());
             } catch (Exception e) {
                 log.error(e.getMessage(), e);
-                //TODO 如果调用异常则将请求放入缓存,等待job继续同步
+                //如果调用异常则将请求放入缓存,等待job继续同步
+                File sync = new File("./sync/" + id + ".sync");
+                FileUtils.writeFile(sync, url);
             }
         });
         return TinyURLDTO.builder().id(id).tiny_url(tinyUrl.get()).build();

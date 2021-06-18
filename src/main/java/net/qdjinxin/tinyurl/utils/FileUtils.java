@@ -57,7 +57,7 @@ public class FileUtils {
      * 保存短网址跳转文件
      *
      * @param path 保存路径
-     * @param url 跳转链接
+     * @param url  跳转链接
      */
     public static void saveHtml(String path, String url) {
         String html = "<!DOCTYPE html>" +
@@ -75,15 +75,43 @@ public class FileUtils {
                 "</html>";
         File fileDir = new File(path);
         final boolean mkdirs = fileDir.mkdirs();
-        if(!mkdirs){
+        if (!mkdirs) {
             return;
         }
         File file = new File(path + File.separator + "index.html");
+        writeFile(file, html);
+    }
+
+    /**
+     * 写文件
+     *
+     * @param file
+     * @param content
+     */
+    public static synchronized void writeFile(File file, String content) {
+        final File parentFile = file.getParentFile();
+        if (!parentFile.exists()) {
+            parentFile.mkdirs();
+        }
         try (OutputStream fos = new FileOutputStream(file); Writer write = new OutputStreamWriter(fos, Charset.defaultCharset()); BufferedWriter bufferedWriter = new BufferedWriter(write)) {
-            bufferedWriter.write(html);
+            bufferedWriter.write(content);
             bufferedWriter.flush();
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
+    }
+
+    /**
+     * 读文件
+     *
+     * @param file
+     */
+    public static void readFile(File file) {
+//        try (OutputStream fos = new FileOutputStream(file); Writer write = new OutputStreamWriter(fos, Charset.defaultCharset()); BufferedWriter bufferedWriter = new BufferedWriter(write)) {
+//            bufferedWriter.write(content);
+//            bufferedWriter.flush();
+//        } catch (Exception e) {
+//            log.error(e.getMessage(), e);
+//        }
     }
 }

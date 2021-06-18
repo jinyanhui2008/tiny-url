@@ -28,7 +28,7 @@ public class SyncController {
      * @param url
      * @param id
      */
-    @PostMapping(value = "/sync", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/sync", produces = MediaType.APPLICATION_JSON_VALUE)
     public String create(String url, String id) {
         final String pathById = FileUtils.createPathById(id);
         final String savePath = FileUtils.createSavePath(pathById);
