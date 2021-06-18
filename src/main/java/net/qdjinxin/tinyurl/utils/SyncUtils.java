@@ -4,10 +4,9 @@ import lombok.extern.log4j.Log4j2;
 import net.qdjinxin.tinyurl.dto.TinyURLDTO;
 import okhttp3.Call;
 import okhttp3.ConnectionPool;
-import okhttp3.MediaType;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -46,8 +45,8 @@ public class SyncUtils {
         AtomicReference<String> tinyUrl = new AtomicReference<>("");
         Arrays.stream(serviceUrl).forEach(sericeUrl -> {
             Request.Builder builder = new Request.Builder();
-            final RequestBody postBody = RequestBody.create(MediaType.parse("application/json"), "{'url':'" + url + "','id':'" + id + "'}");
-            Request request = builder.url(sericeUrl + "/api/sync/sync").post(postBody).build();
+            FormBody formBody = new FormBody.Builder().add("url", url).add("id", id).build();
+            Request request = builder.url("http://" + sericeUrl + "/api/sync/sync").post(formBody).build();
             final Call call = okHttpClient.newCall(request);
             try {
                 Response response = call.execute();

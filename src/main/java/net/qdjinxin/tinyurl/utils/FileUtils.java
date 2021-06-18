@@ -7,12 +7,10 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.nio.charset.Charset;
-import java.util.regex.Pattern;
 
 /**
  * @author 金鑫
@@ -38,7 +36,7 @@ public class FileUtils {
      * @return
      */
     public static String createSavePath(String path) {
-        final String savePath = filePath + File.pathSeparator + path;
+        final String savePath = filePath + File.separator + path;
         return savePath;
     }
 
@@ -52,7 +50,7 @@ public class FileUtils {
         String path1 = id.substring(0, 2);
         String path2 = id.substring(2, 4);
         String path3 = id.substring(4);
-        return path1 + File.pathSeparator + path2 + File.pathSeparator + path3;
+        return path1 + File.separator + path2 + File.separator + path3;
     }
 
     /**
@@ -76,8 +74,11 @@ public class FileUtils {
                 "</body>" +
                 "</html>";
         File fileDir = new File(path);
-        fileDir.mkdirs();
-        File file = new File(path + File.pathSeparator + "index.html");
+        final boolean mkdirs = fileDir.mkdirs();
+        if(!mkdirs){
+            return;
+        }
+        File file = new File(path + File.separator + "index.html");
         try (OutputStream fos = new FileOutputStream(file); Writer write = new OutputStreamWriter(fos, Charset.defaultCharset()); BufferedWriter bufferedWriter = new BufferedWriter(write)) {
             bufferedWriter.write(html);
             bufferedWriter.flush();

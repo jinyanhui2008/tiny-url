@@ -1,7 +1,6 @@
 package net.qdjinxin.tinyurl.controller;
 
 import net.qdjinxin.tinyurl.dto.TinyURLDTO;
-import net.qdjinxin.tinyurl.utils.FileUtils;
 import net.qdjinxin.tinyurl.utils.IDUtils;
 import net.qdjinxin.tinyurl.utils.SyncUtils;
 import org.springframework.http.MediaType;
@@ -48,16 +47,16 @@ public class TinyURLController {
     /**
      * 根据id创建url
      *
-     * @param path
+     * @param url
      * @return
      */
-    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE)
-    public TinyURLDTO create(String path) {
+    @PostMapping(value = "/create", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public TinyURLDTO create(String url) {
         /**
          * 1. 首先创建对应的本地文件.
          * 2. 通过异步将对应的本地文件通知到相关服务器.
          * 3. 全部通知到位后,完成创建.
          */
-        return SyncUtils.sync(path, IDUtils.createId());
+        return SyncUtils.sync(url, IDUtils.createId());
     }
 }
